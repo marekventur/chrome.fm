@@ -1,0 +1,18 @@
+{
+  "name": "Last.fm",
+  "version": "1.0",
+  "manifest_version": 2,
+  "description": "Prototype for Last.fm on Chrome",
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_title": "Last.fm",      
+    "default_popup": "popup.html"        
+  },
+  "permissions": [
+    "http://www.last.fm/",
+    "http://ws.audioscrobbler.com/",
+    "http://hackdaynode.last.fm/",
+    "https://ajax.googleapis.com/"
+  ],
+  "options_page": "options.html"
+}

@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Getting Started Extension's Popup</title>
+    <style>
+      body {
+        min-width:357px;
+        overflow-x:hidden;
+        font-family: "Lucida Grande", Arial, Helvetica, Verdana, sans-serif;
+      }
+
+      a {
+        color: #0187C5;
+      }
+
+      h1 {
+        font-size: 16px;
+      }
+
+      #currently-listening img {
+        float: left;
+        margin-right: 10px;
+      }
+
+      #currently-listening .side {
+        
+      }
+
+      .scrobbler {
+        color: #888;
+        font-size: 0.8em;
+        margin-top: 15px;
+      }
+
+
+      #recent {
+        padding-top:5px;
+        clear: left;
+        
+      }
+
+      #recent h2 {
+        font-size: 16px;
+      }
+
+      #recent a{
+        font-size: 0.8em;
+        color: #888;
+      }
+
+    </style>
+    <script src="jquery.js"></script>
+    <script src="lib.js"></script>
+  </head>
+  <body>
+    <h1>Hello <a href="#" class="username"></a></h1>
+    <div id="currently-listening">
+      <img src="http://userserve-ak.last.fm/serve/126s/425563.jpg" alt="The Dandy Warhols">
+      <div class="side">
+        <a href="#" class="track-name">We Used To Be Friends</a> by 
+        <a href="#" class="track-artist">The Dandy Warhols</a>
+        <div class="scrobbler">Scrobbling from <a href="#" class="scrobbler">Rdio</a></div>
+        <div>
+          <a href="#">Love</a>
+          <a href="#">Ban</a>
+          <a href="#">Share</a>
+          <a href="#">Tag</a>
+
+        </div>
+      </div>
+
+      <div id="recent">
+        <h2>Recent tracks</h2>
+        <div><a href="#">The White Stripes – Blue Orchid</a></div> 
+        <div><a href="#">Pryda & Empire Of The Sun – We Are The Mirage</a></div> 
+        <div><a href="#">Zulu Winter – Words That I Wield</a></div> 
+      </div>
+    </div>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
