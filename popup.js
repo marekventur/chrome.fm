@@ -9,25 +9,35 @@ port.onMessage.addListener(function(message) {
 
 	if (type == 'track') {
 		console.log ('track', data);
-        $('.track-name').text(data.track.title);
-        $('.track-artist').text(data.track.artist.name);
+		if (data != null) {
+			$('#currently-listening').show();
+			$('#currently-not-listening').hide();
 
-        // show hide/scrobbler info
-        if (data.application) {
-        	$('.scrobbler').text(data.application);
-        	$('.scrobbler-unknown').hide();
-        }
-        else
-        {
-        	$('.scrobbler-known').hide();
-        }
+	        $('.track-name').text(data.track.title);
+	        $('.track-artist').text(data.track.artist.name);
+
+	        // show hide/scrobbler info
+	        if (data.application) {
+	        	$('.scrobbler').text(data.application);
+	        	$('.scrobbler-unknown').hide();
+	        }
+	        else
+	        {
+	        	$('.scrobbler-known').hide();
+	        }
+	    }
+	    else
+	    {
+	    	$('#currently-listening').hide();
+			$('#currently-not-listening').show();
+	    }
     }
 
     if (type == 'trackContext') {
 		console.log ('trackContext', data);
 		if (data != null) {
 			$('.track-action').show();
-			
+
 			loved = (data.userloved == '1');
 			if (loved) {
 				$('.track-action-love').hide();
