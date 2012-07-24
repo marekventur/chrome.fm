@@ -1,0 +1,44 @@
+body {
+  min-width:357px;
+  overflow-x:hidden;
+  font-family: "Lucida Grande", Arial, Helvetica, Verdana, sans-serif;
+}
+
+a {
+  color: #0187C5;
+}
+
+h1 {
+  font-size: 16px;
+}
+
+#currently-listening img {
+  float: left;
+  margin-right: 10px;
+}
+
+#currently-listening .side {
+  
+}
+
+.scrobbler {
+  color: #888;
+  font-size: 0.8em;
+  margin-top: 15px;
+}
+
+
+#recent {
+  padding-top:5px;
+  clear: left;
+  
+}
+
+#recent h2 {
+  font-size: 16px;
+}
+
+#recent a{
+  font-size: 0.8em;
+  color: #888;
+}

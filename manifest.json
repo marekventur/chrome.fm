@@ -10,9 +10,14 @@
   },
   "permissions": [
     "http://www.last.fm/",
+    "https://ws.audioscrobbler.com/",
     "http://ws.audioscrobbler.com/",
     "http://hackdaynode.last.fm/",
     "https://ajax.googleapis.com/"
   ],
-  "options_page": "options.html"
+  "content_security_policy": "script-src 'self' https://ws.audioscrobbler.com; object-src 'self'",
+  "options_page": "options.html",
+  "background": {
+    "page": "background.html"
+  }
 }
