@@ -48,11 +48,17 @@ port.onMessage.addListener(function(message) {
 				$('.track-action-love').show();
 				$('.track-action-unlove').hide();
 			}
+
+			if (data.album) {
+				$('#image').attr('src', data.album.image[1]['#text']);
+			}
+			
 		}
 		else
 		{
 			// we're still loading the user context, be patient
 			$('.track-action').hide();
+			$('#image').attr('src', 'palceholder.png');
 		}
 		
         
