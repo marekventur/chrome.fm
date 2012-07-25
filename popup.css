@@ -2,10 +2,14 @@ body {
   min-width:357px;
   overflow-x:hidden;
   font-family: "Lucida Grande", Arial, Helvetica, Verdana, sans-serif;
+  background-color: #fafafa;
+  font-size: 16px;
+  color: #333333;
 }
 
 a {
   color: #0187C5;
+  text-decoration: none;
 }
 
 h1 {
@@ -15,16 +19,22 @@ h1 {
 #currently-listening img {
   float: left;
   margin-right: 10px;
+  border-radius: 2px;
 }
 
 #currently-listening .side {
   
 }
 
-.scrobbler {
+.track-name, .track-artist {
+  sfont-weight: bold;
+}
+
+.scrobbler-label {
+  margin-top: 0px;
   color: #888;
   font-size: 0.8em;
-  margin-top: 15px;
+  margin-top: 10px;
 }
 
 
@@ -35,10 +45,64 @@ h1 {
 }
 
 #recent h2 {
-  font-size: 16px;
+  color: #d51007;
+  font-size: 18px;
 }
 
 #recent a{
   font-size: 0.8em;
   color: #888;
+}
+
+/* Icons 203x141 */
+
+.icon {
+  margin-top: 5px;
+  height: 40px;
+  width: 50px;
+  background-image:url('icons.png');
+  text-indent: -3000px; 
+  outline: none;
+  display: block;
+  float: left;
+}
+
+a.track-action-love {
+  background-position: 0px 0px;
+}
+
+a.track-action-unlove {
+  background-position: 0px -47px;
+}
+
+a.track-action-ban {
+  background-position: 50px 0px;
+}
+
+a.track-action-share {
+  background-position: 100px 0px;
+}
+
+a.track-action-tag {
+  background-position: 150px 0px;
+}
+
+a.track-action-love:hover {
+  background-position: 0px -47px;
+}
+
+a.track-action-unlove:hover {
+  background-position: 0px -94px;
+}
+
+a.track-action-ban:hover {
+  background-position: 50px -47px;
+}
+
+a.track-action-share:hover {
+  background-position: 100px -47px;
+}
+
+a.track-action-tag:hover {
+  background-position: 150px -47px;
 }
