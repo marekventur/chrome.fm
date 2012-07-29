@@ -1,6 +1,5 @@
 getUserSettings(function(user) {
     if (user) {
-        console.log(user);
         var currentTrack = null;
         var currentTrackUserContext = null;
 
@@ -51,7 +50,7 @@ getUserSettings(function(user) {
             currentTrackUserContext = null;
             if (currentTrack) {
                 /* Load some artist info. */
-                getLastFm().track.getInfo({'artist': currentTrack.track.artist.name, 'track':currentTrack.track.title, 'username': user.name}, null, {
+                getLastFm().track.getInfo({'artist': currentTrack.track.artist.name, 'track':currentTrack.track.title, 'username': user.name}, {
                     success: function(data){
                         currentTrackUserContext = data.track;
                         callback();
@@ -92,14 +91,44 @@ getUserSettings(function(user) {
                 }
 
                 if (message.type == 'love') {
+                   
+                    getLastFm().track.love({
+                        artist: currentTrack.track.artist.name,
+                        track: currentTrack.track.title
+                    }, user.sessionKey, {
+                        success: function(data) {
+                            if ( ! data.error) {
+                                console.log('loved', data);
+                            }
+                            else
+                            {
+                                console.log('error', data);
+                            }
+                        }
+                    });
+
                     currentTrackUserContext.userloved = '1';
-                    // ToDo: Love track via API
                     sendCurrentTrackUserContext(port);
                 }
 
                 if (message.type == 'unlove') {
+
+                    getLastFm().track.unlove({
+                        artist: currentTrack.track.artist.name,
+                        track: currentTrack.track.title
+                    }, user.sessionKey, {
+                        success: function(data) {
+                            if ( ! data.error) {
+                                console.log('unloved', data);
+                            }
+                            else
+                            {
+                                console.log('error', data);
+                            }
+                        }
+                    });
+
                     currentTrackUserContext.userloved = '0';
-                    // ToDo: Unlove track via API
                     sendCurrentTrackUserContext(port);
                 }
             });
@@ -216,10 +245,40 @@ getUserSettings(function(user) {
 
         function sendNowPlaying(track) {
             console.log('nowPlaying', track);
+            getLastFm().track.updateNowPlaying({
+                artist: track.artist,
+                track: track.title,
+                duration: track.duration
+            }, user.sessionKey, {
+                success: function(data) {
+                    if ( ! data.error) {
+                        console.log('nowPlaying sent', data);
+                    }
+                    else
+                    {
+                        console.log('error', data);
+                    }
+                }
+            });
         }
 
         function sendScrobble(track) {
             console.log('scrobble', track);
+            getLastFm().track.scrobble({
+                'artist[0]': track.artist,
+                'track[0]': track.title,
+                'timestamp[0]':  Math.round((new Date()).getTime() / 1000)
+            }, user.sessionKey, {
+                success: function(data) {
+                    if ( ! data.error) {
+                        console.log('scrobble sent', data);
+                    }
+                    else
+                    {
+                        console.log('error', data);
+                    }
+                }
+            });
         }
 
         var idToTitle = {};

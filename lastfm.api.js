@@ -36,17 +36,26 @@ function LastFM(options) {
 	};
 	
 	/* Private Signed method call. */
-	var signedCall = function(method, params, session, callbacks){
+	var signedCall = function(method, params, session, callbacks, type){
 		/* Set default values. */
 		params  = params || {};
+
+		type  = type || 'GET';
 
 		/* Add parameters. */
 		params.method  = method;
 		params.api_key = apiKey;
 		
 		/* Add session key. */
+		console.log(session);
 		if(session && typeof(session.key) != 'undefined'){
 			params.sk = session.key;
+		}
+		else
+		{
+			if (session) {
+				params.sk = session;
+			}
 		}
 
 		/* Get API signature. */
@@ -56,10 +65,13 @@ function LastFM(options) {
 		params.format = 'json';
 
 		/* Call method. */
-		internalCall(params, callbacks);
+		internalCall(params, callbacks, type);
 	};
 	
-	var	internalCall = function(params, callbacks) {
+	var	internalCall = function(params, callbacks, type) {
+
+		type  = type || 'GET';
+
 		var url,
 			jsonResponse,
 			callbackFunction;
@@ -76,10 +88,19 @@ function LastFM(options) {
 		/* Set script source. */
 		url = lastfmUrl + '?' + paramArray.join('&');	
 		
-		$.getJSON(
-		    url,
-			'',
-			callbackFunction
+		
+		$.ajax(
+			url,
+			{
+				'dataType': 'json',
+				success: function(res) {
+					callbackFunction(res);
+				},
+				erros: function(res) {
+					callbackFunction(res);
+				},
+				'type': type
+			}
 		);
 	};
 	
@@ -197,8 +218,20 @@ function LastFM(options) {
 	};
 	
     this.track = {
-    	getInfo : function(params, session, callbacks){
+    	getInfo : function(params, callbacks){
     		signedCall('track.getInfo', params, null, callbacks);
+    	},
+    	love : function(params, session, callbacks){
+    		signedCall('track.love', params, session, callbacks, 'POST');
+    	},
+    	unlove : function(params, session, callbacks){
+    		signedCall('track.unlove', params, session, callbacks, 'POST');
+    	},
+    	updateNowPlaying : function(params, session, callbacks){
+    		signedCall('track.updateNowPlaying', params, session, callbacks, 'POST');
+    	},
+    	scrobble : function(params, session, callbacks){
+    		signedCall('track.scrobble', params, session, callbacks, 'POST');
     	}
     };
 
@@ -284,6 +317,7 @@ function LastFM(options) {
 
 		shout : function(params, session, callbacks){
 			signedCall('artist.shout', params, session, callbacks, 'POST');
-		}
+		},
+
 	};
 };

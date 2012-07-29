@@ -52,6 +52,12 @@ $(function() {
                 })
             });
         }
+
+        $('#un_auth').click(function() {
+            setUserSettings(null);
+            $('#not_authorized').show();
+            $('#authorized').hide();                           
+        });
     });
 
 
