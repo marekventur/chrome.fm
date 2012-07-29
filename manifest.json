@@ -11,12 +11,16 @@
   "permissions": [
     "webRequest",
     "notifications",
+    "storage",
     "http://www.last.fm/",
     "https://ws.audioscrobbler.com/",
     "http://ws.audioscrobbler.com/",
     "http://hackdaynode.last.fm/",
     "https://ajax.googleapis.com/",
-    "http://s.youtube.com/s*"
+    "*://s.youtube.com/s*",
+    "http://playground.last.fm/",
+    "http://*/",
+    "https://*/"
   ],
   "content_security_policy": "script-src 'self' https://ws.audioscrobbler.com; object-src 'self'",
   "options_page": "options.html",

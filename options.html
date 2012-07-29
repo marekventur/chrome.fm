@@ -1,14 +1,24 @@
 <html>
 <head>
-  <title>My Test Extension Options</title>
+  <title>Last.fm for Chrome - Configuration</title>
   <script src="jquery.js"></script>
   <script src="lib.js"></script>
+  <script src="lastfm.api.cache.js"></script>
+    <script src="lastfm.api.md5.js"></script>
+    <script src="lastfm.api.js"></script>
 </head>
 
 <body>
-  Username:
-  <input type="text" id="username" />
-  <button id="save">Save</button>
+  <div id="authorized">
+    You are authorized as <span id="username"></span>.
+  </div>
+  <div id="not_authorized">
+    Hello Stranger,</br>
+    <a href="#" id="auth_app">Please authorize this app at Last.fm</a>.
+  </div>
+  <div id="wait" style="display:none">
+        Please wait...
+  </div>
 </body>
 
 <script src="options.js"></script>

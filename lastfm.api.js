@@ -84,10 +84,13 @@ function LastFM(options) {
 	};
 	
 	//lastfm Methods
-	this.session = {
-		getSessionCall : function(params, callbacks){
+	this.auth = {
+		getSession : function(params, callbacks){
 			signedCall('auth.getSession', params, null, callbacks);
-		}
+		},
+		getToken : function(params, callbacks) {
+			signedCall('auth.getToken', params, null, callbacks);
+		}	
 	};	
 	
 	/* User methods. */
