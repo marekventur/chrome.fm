@@ -1,4 +1,5 @@
 $(function() {
+
     getUserSettings(function(user) {
         if (user) {
             $('#not_authorized').hide();
@@ -36,6 +37,9 @@ $(function() {
                                         $('#wait').hide();
                                         $('#authorized').show();
                                         $('#username').html(user.name);
+
+                                        // Cause the background page to reload
+                                        var port =  chrome.extension.connect();
 
                                         alert('Authorization successfull!');
                                     } 

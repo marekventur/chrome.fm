@@ -6,37 +6,42 @@
     <script src="lib.js"></script>
   </head>
   <body>
-    <!--http://userserve-ak.last.fm/serve/126s/425563.jpg-->
-    <h1>Hello <a href="#" target="_blank" class="username"></a></h1>
-    <div id="currently-listening">
-      <img src="placeholder.png" id="image" alt="The Dandy Warhols">
-      <div class="side">
-        <a href="#" class="track-name"></a> by <br>
-        <a href="#" class="track-artist"></a>
-        <div class="scrobbler-known scrobbler-label">Scrobbling from <a href="#" class="scrobbler"></a></div>
-        <div class="scrobbler-unknown scrobbler-label">Scrobbling with unknown Scrobbler</div>
-        <div class="track-action">
-          <a href="#" class="icon track-action-love">Love</a>
-          <a href="#" class="icon track-action-unlove">Unlove</a>
-          <a href="#" class="icon track-action-ban">Ban</a>
-          <a href="#" class="icon track-action-share">Share</a>
-          <a href="#" class="icon track-action-tag">Tag</a>
+    <div id="authed">
+      <!--http://userserve-ak.last.fm/serve/126s/425563.jpg-->
+      <h1>Hello <a href="#" target="_blank" class="username"></a></h1>
+      <div id="currently-listening">
+        <img src="placeholder.png" id="image" alt="The Dandy Warhols">
+        <div class="side">
+          <a href="#" class="track-name"></a> by <br>
+          <a href="#" class="track-artist"></a>
+          <div class="scrobbler-known scrobbler-label">Scrobbling from <a href="#" class="scrobbler"></a></div>
+          <div class="scrobbler-unknown scrobbler-label">Scrobbling with unknown Scrobbler</div>
+          <div class="track-action">
+            <a href="#" class="icon track-action-love">Love</a>
+            <a href="#" class="icon track-action-unlove">Unlove</a>
+            <a href="#" class="icon track-action-ban">Ban</a>
+            <a href="#" class="icon track-action-share">Share</a>
+            <a href="#" class="icon track-action-tag">Tag</a>
+          </div>
         </div>
+      </div> 
+
+      <div id="currently-not-listening">
+        Y U NO SCROBBLING?
       </div>
-    </div> 
 
-    <div id="currently-not-listening">
-      Y U NO SCROBBLING?
+
+      <div id="recent" style="display: none;">
+        <h2>Recent tracks</h2>
+        <div><a href="#">The White Stripes – Blue Orchid</a></div> 
+        <div><a href="#">Pryda & Empire Of The Sun – We Are The Mirage</a></div> 
+        <div><a href="#">Zulu Winter – Words That I Wield</a></div> 
+      </div>
     </div>
 
-
-    <div id="recent" style="display: none;">
-      <h2>Recent tracks</h2>
-      <div><a href="#">The White Stripes – Blue Orchid</a></div> 
-      <div><a href="#">Pryda & Empire Of The Sun – We Are The Mirage</a></div> 
-      <div><a href="#">Zulu Winter – Words That I Wield</a></div> 
-    </div>
-
+    <a id="no_auth" href="#">
+      Please connect this plugin to Last.fm.
+    </a>
 
     <script src="popup.js"></script>
   </body>

@@ -71,9 +71,7 @@ getUserSettings(function(user) {
             postMessage(port, 'trackContext', currentTrackUserContext);
         }
 
-        function sendUser(port) {
-            postMessage(port, 'user', user);
-        }
+       
 
         // Helper
         function postMessage(port, type, data) {
@@ -86,7 +84,6 @@ getUserSettings(function(user) {
                 console.log('got message', message);
                 if (message.type == 'update') {
                     sendCurrentTrack(port);
-                    sendUser(port);
                     sendCurrentTrackUserContext(port);
                 }
 
@@ -339,5 +336,9 @@ getUserSettings(function(user) {
     else
     {
         console.log('no user found');
+        chrome.extension.onConnect.addListener(function(port) {
+            // quick hack!
+            location.reload();
+        });
     }
 });
