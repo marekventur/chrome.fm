@@ -76,9 +76,7 @@ getUserSettings(function(user) {
             postMessage(port, 'trackContext', currentTrackUserContext);
         }
 
-        function sendUser(port) {
-            postMessage(port, 'user', user);
-        }
+       
 
         // Helper
         function postMessage(port, type, data) {
@@ -91,7 +89,6 @@ getUserSettings(function(user) {
                 console.log('got message', message);
                 if (message.type == 'update') {
                     sendCurrentTrack(port);
-                    sendUser(port);
                     sendCurrentTrackUserContext(port);
                 }
 
@@ -229,12 +226,20 @@ getUserSettings(function(user) {
 
         function handleYouTubeEvent(len, pos, id) {
             getTrack(id, function(track) {
+                
                 // Follow da rulez
                 if (len > 30) {         
                     if ((pos < 2) && (lastTrackIdNowPlaying != id)) {
                         lastTrackIdScrobble = null;
                         lastTrackIdNowPlaying = id;
                         sendNowPlaying(track);
+
+                        var notification = webkitNotifications.createNotification(
+                          'icon48.png',  
+                          'Now playing on YouTube',  
+                          track.title + " by " + track.artist  
+                        );
+                        notification.show();
                     }
 
                     var scrobblePoint = Math.min(4 * 60, len / 2);
@@ -243,8 +248,19 @@ getUserSettings(function(user) {
                         lastTrackIdScrobble = id;
                         lastTrackIdNowPlaying = null;
                         sendScrobble(track);
+
+                        var notification = webkitNotifications.createNotification(
+                          'icon48.png',  
+                          'Scrobbled',  
+                          track.title + " by " + track.artist  
+                        );
+                        notification.show();
                     }
                 }
+            },
+            function() {
+               
+                
             });
         }
 
@@ -287,9 +303,15 @@ getUserSettings(function(user) {
         }
 
         var idToTitle = {};
-        function getTrack(id, callback) {
+        function getTrack(id, callback, error) {
             if (id in idToTitle) {
-                callback(idToTitle[id]);
+                if (idToTitle[id] == 'nope') {
+                    error()
+                }
+                else
+                {
+                    callback(idToTitle[id]);
+                }
                 return;
             }
 
@@ -301,8 +323,16 @@ getUserSettings(function(user) {
                         callback(data);
                     },
                     503: function() {
-                        idToTitle[id] = null;
-                        callback(null);
+                        idToTitle[id] = 'nope';
+                        error();
+                        console.log('nope, it\'s probably not music');
+
+                        var notification = webkitNotifications.createNotification(
+                          'icon48.png',  
+                          'Not a track?',  
+                          'Please give feedback if this is a mistake. Id: '+id  
+                        );
+                        notification.show();
                     }
                 }
             });
@@ -311,5 +341,9 @@ getUserSettings(function(user) {
     else
     {
         console.log('no user found');
+        chrome.extension.onConnect.addListener(function(port) {
+            // quick hack!
+            location.reload();
+        });
     }
 });
