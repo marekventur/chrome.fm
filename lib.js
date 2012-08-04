@@ -32,13 +32,13 @@ function getLastFm() {
 var lastfm = null;
 
 function getRecentTrack(user, callback) {
-    console.log(callback);
     var lastfm = getLastFm();
-    lastfm.user.getRecentTracks({
-        user: user.username
-    }, {
+    lastfm.user.getRecentTracksSigned({
+        user: user.name,
+        extended: "true"
+    }, user.sessioKey, {
         success : function(data) {
-            callback(data);
+            callback(data.recenttracks.track);
         }
     });
 }

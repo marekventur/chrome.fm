@@ -48,12 +48,48 @@ h1 {
 
 #recent h2 {
   color: #d51007;
-  font-size: 18px;
+  font-size: 16px;
 }
 
-#recent a{
+#recent ul {
+  margin-left:0;
+  list-style: none;
+  -webkit-padding-start: 0px;
+  -webkit-margin-after: 0px;
+}
+
+#recent li {
+  line-height: 34px;
+  margin:0px;
+  padding: 0px;
+  border-bottom: 1px solid #ccc;
+  list-style: none;
+  position: relative;
+}
+
+#recent li img{
+  position: absolute;
+}
+
+#recent .text-container{
+  margin-left: 40px;
+  position: relative;
+  margin-top: -12px;
   font-size: 0.8em;
-  color: #888;
+  line-height: 34px;
+  display: inline-block;
+}
+
+.more-recent-tracks {
+  display: none;
+} 
+
+#show-more-recent-tracks {
+  text-align: right;
+  font-weight: normal;
+  display: block;
+  font-size: 0.7em;
+  margin-top: -17px;
 }
 
 /* Icons 203x141 */

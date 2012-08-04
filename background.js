@@ -2,6 +2,7 @@ getUserSettings(function(user) {
     if (user) {
         var currentTrack = null;
         var currentTrackUserContext = null;
+        var recentTracks = null;
 
         var updatePopupTrackChangeHandler = null;
         var updateUserContextHandler = null;
@@ -22,8 +23,6 @@ getUserSettings(function(user) {
                 console.log('new track', currentTrack, updatePopupTrackChangeHandler);
 
                 requestCurrentTrackUserContext(function() {
-                    console.log('user context', currentTrackUserContext);
-
                     // send the real data
                     if (updateUserContextHandler) {
                         updateUserContextHandler();
@@ -41,7 +40,7 @@ getUserSettings(function(user) {
 
                 // update recent tracks
                 getRecentTrack(user, function(data) {
-                    console.log(data);
+                    recentTracks = data;
                 });
             })
             .onError(function(message) {
@@ -72,6 +71,10 @@ getUserSettings(function(user) {
             postMessage(port, 'track', currentTrack);
         }
 
+        function sendRecentTracks(port) {
+            postMessage(port, 'recentTracks', recentTracks);
+        }
+
         function sendCurrentTrackUserContext(port) {
             postMessage(port, 'trackContext', currentTrackUserContext);
         }
@@ -90,6 +93,7 @@ getUserSettings(function(user) {
                 if (message.type == 'update') {
                     sendCurrentTrack(port);
                     sendCurrentTrackUserContext(port);
+                    sendRecentTracks(port);                    
                 }
 
                 if (message.type == 'love') {
@@ -111,6 +115,11 @@ getUserSettings(function(user) {
 
                     currentTrackUserContext.userloved = '1';
                     sendCurrentTrackUserContext(port);
+
+                    // update recent tracks
+                    getRecentTrack(user, function(data) {
+                        recentTracks = data;
+                    });
                 }
 
                 if (message.type == 'unlove') {
@@ -132,16 +141,19 @@ getUserSettings(function(user) {
 
                     currentTrackUserContext.userloved = '0';
                     sendCurrentTrackUserContext(port);
+
+                    // update recent tracks
+                    getRecentTrack(user, function(data) {
+                        recentTracks = data;
+                    });
                 }
             });
 
             updatePopupTrackChangeHandler = function() {
-                console.log('updatePopupTrackChangeHandler');
                 sendCurrentTrack(port);
             }
 
             updateUserContextHandler = function() {
-                console.log('updateUserContextHandler');
                 sendCurrentTrackUserContext(port);
             }
 
@@ -158,7 +170,6 @@ getUserSettings(function(user) {
         var filter = {
             urls: ['*://s.youtube.com/s*']
         };
-        console.log(filter);
 
         chrome.webRequest.onBeforeRequest.addListener(function(details) {
             //console.log(details);

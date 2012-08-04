@@ -35,6 +35,23 @@ function LastFM(options) {
 		}
 	};
 	
+	var unsignedCall = function(method, params, callbacks, type) {
+		/* Set default values. */
+		params  = params || {};
+
+		type  = type || 'GET';
+
+		/* Add parameters. */
+		params.method  = method;
+		params.api_key = apiKey;
+		
+		// Set lastfm callback format
+		params.format = 'json';
+
+		/* Call method. */
+		internalCall(params, callbacks, type);
+	};
+
 	/* Private Signed method call. */
 	var signedCall = function(method, params, session, callbacks, type){
 		/* Set default values. */
@@ -164,7 +181,11 @@ function LastFM(options) {
 		},
 
 		getRecentTracks : function(params, callbacks){
-			signedCall('user.getRecentTracks', params, callbacks);
+			unsignedCall('user.getRecentTracks', params, callbacks);
+		},
+
+		getRecentTracksSigned : function(params, session, callbacks){
+			signedCall('user.getRecentTracks', params, session, callbacks);
 		},
 
 		getRecommendedArtists : function(params, session, callbacks){
