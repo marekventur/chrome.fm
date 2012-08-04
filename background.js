@@ -38,6 +38,11 @@ getUserSettings(function(user) {
                 if (updatePopupTrackChangeHandler) {
                     updatePopupTrackChangeHandler();
                 }
+
+                // update recent tracks
+                getRecentTrack(user, function(data) {
+                    console.log(data);
+                });
             })
             .onError(function(message) {
                 console.log ('error',message)   

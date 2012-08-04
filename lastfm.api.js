@@ -47,7 +47,6 @@ function LastFM(options) {
 		params.api_key = apiKey;
 		
 		/* Add session key. */
-		console.log(session);
 		if(session && typeof(session.key) != 'undefined'){
 			params.sk = session.key;
 		}

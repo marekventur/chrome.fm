@@ -30,3 +30,15 @@ function getLastFm() {
 }
 
 var lastfm = null;
+
+function getRecentTrack(user, callback) {
+    console.log(callback);
+    var lastfm = getLastFm();
+    lastfm.user.getRecentTracks({
+        user: user.username
+    }, {
+        success : function(data) {
+            callback(data);
+        }
+    });
+}
