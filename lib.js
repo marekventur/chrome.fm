@@ -42,3 +42,38 @@ function getRecentTrack(user, callback) {
         }
     });
 }
+
+function addTagsToElement($el, tags) {
+    console.log(tags);
+    var len = tags.length;
+
+    if (len == 0) {
+        $el.hide();
+    }
+    else
+    {
+        var list = $el.find('.tags-list');
+        list.empty();
+        var content = '';
+        for (var i=0;i<len;++i) {
+            if (i) {
+                content += ' :: ';
+            }
+            content += '<a href="#">'+tags[i].name+'</a>';
+        }
+        console.log(len);
+        var $content = $(content);
+        console.log($content);
+        $content.click(function(e) {
+            var tag = $(e.target).text();
+            if ($('#tags').val() != "") {
+                $('#tags').val($('#tags').val()+",");
+            } 
+            $('#tags').val($('#tags').val()+tag);
+        });
+
+        list.empty().append($content);
+    }
+ 
+    
+}

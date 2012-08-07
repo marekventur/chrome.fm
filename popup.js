@@ -56,13 +56,17 @@ getUserSettings(function(user) {
 					if (data.album) {
 						$('#image').attr('src', data.album.image[1]['#text']);
 					}
+
+					var tags = data.toptags.tag;
+					
+					addTagsToElement($('#top-tags'), tags);
 					
 				}
 				else
 				{
 					// we're still loading the user context, be patient
 					$('.track-action').hide();
-					$('#image').attr('src', 'palceholder.png');
+					$('#image').attr('src', 'placeholder.png');
 				}
 				
 		        
@@ -104,31 +108,7 @@ getUserSettings(function(user) {
 						el += '</div>';
 						el += '</li>';
 						list.append($(el));
-						/*<tr class="" id="r9_100643029_917241982" data-track-id="100643029">
- <td class="imageCell imageSmall ">
- <a href="/music/Justice/_/D.A.N.C.E.+%5BRadio+Edit%5D"><img height="34" width="34" alt="" src="http://userserve-ak.last.fm/serve/34s/69030050.png"></a> </td>
- 
- <td class="playbuttonCell ">
- <div></div>
- </td>
- <td class="subjectCell ">
- <a href="/music/Justice">Justice</a> – <a href="/music/Justice/_/D.A.N.C.E.+%5BRadio+Edit%5D">D.A.N.C.E. [Radio Edit]</a> </td>
- <td class="lovedCell">
- </td>
- <td class="smallmultibuttonCell ">
- <a href="/music/Justice/_/D.A.N.C.E.+%5BRadio+Edit%5D" class=" 
- mRemoveFromLibrary 
- mSend mAddTags
- mAddToPlaylist
- mLove mBuy
- lfmButton lfmMultiButton lfmButtonFortrack lfmSmallButton lfmSmallMultiButton lfmMultiButtonFull
-" forcelink="1"><span></span></a>
-<script>LFM.Page.Tracker.storeResourceTypeForURL("/music/Justice/_/D.A.N.C.E.+%5BRadio+Edit%5D", "Track");</script> </td>
- <td class="dateCell ">
- <span class="date">1 minute ago</span>
- </td>
- 
- </tr>*/
+						
 					}
 					
 				}	
@@ -145,6 +125,41 @@ getUserSettings(function(user) {
 
 		$('.track-action-unlove').click(function() {
 			port.postMessage({type: 'unlove'});
+		});
+
+		$('#open-tag').click(function() {
+			if ($('#tag').is(':visible')) {
+				$('#tag').hide();
+				$('#recent').show();
+			}
+			else
+			{
+				$('#recent').hide();
+				$('#share').hide();
+				$('#tag').show();
+			}
+			
+		});
+
+		$('#open-share').click(function() {
+			if ($('#share').is(':visible')) {
+				$('#share').hide();
+				$('#recent').show();
+			}
+			else
+			{
+				$('#recent').hide();
+				$('#tag').hide();
+				$('#share').show();
+			}
+			
+		});
+
+		$('#send-tags').click(function() {
+			$('#tag').hide();
+			// TODO: Send tags
+			$('#tags').val();
+			$('#recent').show();
 		});
 	} 
 	else
