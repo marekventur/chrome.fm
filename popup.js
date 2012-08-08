@@ -56,15 +56,62 @@ getUserSettings(function(user) {
 					if (data.album) {
 						$('#image').attr('src', data.album.image[1]['#text']);
 					}
+
+					var tags = data.toptags.tag;
+					
+					addTagsToElement($('#top-tags'), tags);
 					
 				}
 				else
 				{
 					// we're still loading the user context, be patient
 					$('.track-action').hide();
-					$('#image').attr('src', 'palceholder.png');
+					$('#image').attr('src', 'placeholder.png');
 				}
 				
+		        
+		    }
+
+		    if (type == 'recentTracks') {
+				console.log ('recentTracks', data);
+				if (data != null) {
+					var list = $('#recent-list');
+					list.empty();
+					len = data.length;
+					len = Math.min(10, len);
+					if (len > 3) {
+						$('#show-more-recent-tracks').show().click(function() {
+							$('.more-recent-tracks').attr('class', '');
+							$('#show-more-recent-tracks').css('visibility', 'hidden');
+						});
+					}
+					else
+					{
+						$('#show-more-recent-tracks').css('visibility', 'hidden');
+					}
+					for(var i = 0; i < len; ++i) {
+						var track = data[i];
+						trackURL = '#';
+						artistURL = '#';
+						var el = '<li>';
+						if (i > 2) {
+							el = '<li class="more-recent-tracks">';
+						}
+						image = track.image[0]['#text'];
+						if (image ==  '') {
+							image = 'placeholder34.png';
+						}
+						el += '<img src="'+ image +'">'; 
+						el += '<div class="text-container">';
+						el += '<a href="'+track.url+'">'+track.artist.name+'</a> - '; 
+						el += '<a href="'+track.url+'">'+track.name+'</a> '; 
+						el += '</div>';
+						el += '</li>';
+						list.append($(el));
+						
+					}
+					
+				}	
 		        
 		    }
 
@@ -78,6 +125,41 @@ getUserSettings(function(user) {
 
 		$('.track-action-unlove').click(function() {
 			port.postMessage({type: 'unlove'});
+		});
+
+		$('#open-tag').click(function() {
+			if ($('#tag').is(':visible')) {
+				$('#tag').hide();
+				$('#recent').show();
+			}
+			else
+			{
+				$('#recent').hide();
+				$('#share').hide();
+				$('#tag').show();
+			}
+			
+		});
+
+		$('#open-share').click(function() {
+			if ($('#share').is(':visible')) {
+				$('#share').hide();
+				$('#recent').show();
+			}
+			else
+			{
+				$('#recent').hide();
+				$('#tag').hide();
+				$('#share').show();
+			}
+			
+		});
+
+		$('#send-tags').click(function() {
+			$('#tag').hide();
+			// TODO: Send tags
+			$('#tags').val();
+			$('#recent').show();
 		});
 	} 
 	else

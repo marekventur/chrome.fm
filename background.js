@@ -2,48 +2,70 @@ getUserSettings(function(user) {
     if (user) {
         var currentTrack = null;
         var currentTrackUserContext = null;
+        var recentTracks = null;
 
         var updatePopupTrackChangeHandler = null;
         var updateUserContextHandler = null;
 
+        function updateRecentTracks() {
+            // update recent tracks
+            getRecentTrack(user, function(data) {
+                recentTracks = data;
+            });
+        }
+
         // Realtime
+        function realtimeTrackFound(data) {
+            if (data.length > 0) {
+                currentTrack = data[0];
+            }
+            else
+            {
+                currentTrack = null;
+            }
+            console.log('new track', currentTrack, updatePopupTrackChangeHandler);
+
+            requestCurrentTrackUserContext(function() {
+                // send the real data
+                if (updateUserContextHandler) {
+                    updateUserContextHandler();
+                }
+            });
+
+            // send the null data
+            if (updateUserContextHandler) {
+                updateUserContextHandler();
+            }
+
+            if (updatePopupTrackChangeHandler) {
+                updatePopupTrackChangeHandler();
+            }
+
+            updateRecentTracks();
+        }
+
+        updateRecentTracks();
+
         var realtimeQuery = new lfmc_RecentFeed('track')
             .filterByUser(user.name)
             .addExtraField('application')
             .setType('nowplaying')
-            .onData(function(data) {
-                if (data.length > 0) {
-                    currentTrack = data[0];
-                }
-                else
-                {
-                    currentTrack = null;
-                }
-                console.log('new track', currentTrack, updatePopupTrackChangeHandler);
-
-                requestCurrentTrackUserContext(function() {
-                    console.log('user context', currentTrackUserContext);
-
-                    // send the real data
-                    if (updateUserContextHandler) {
-                        updateUserContextHandler();
-                    }
-                });
-
-                // send the null data
-                if (updateUserContextHandler) {
-                    updateUserContextHandler();
-                }
-
-                if (updatePopupTrackChangeHandler) {
-                    updatePopupTrackChangeHandler();
-                }
-            })
+            .onData(realtimeTrackFound)
             .onError(function(message) {
                 console.log ('error',message)   
             })
             .run();
 
+        // No-HackdayNode-Workaround:
+        /*realtimeTrackFound([{
+            track: {
+                title: 'Intro',
+                artist: {
+                    name: 'The XX'
+                }
+            },
+            application: 'Fake Scrobbler'
+        }]);*/
         // API
 
         function requestCurrentTrackUserContext(callback) {
@@ -67,6 +89,10 @@ getUserSettings(function(user) {
             postMessage(port, 'track', currentTrack);
         }
 
+        function sendRecentTracks(port) {
+            postMessage(port, 'recentTracks', recentTracks);
+        }
+
         function sendCurrentTrackUserContext(port) {
             postMessage(port, 'trackContext', currentTrackUserContext);
         }
@@ -85,6 +111,7 @@ getUserSettings(function(user) {
                 if (message.type == 'update') {
                     sendCurrentTrack(port);
                     sendCurrentTrackUserContext(port);
+                    sendRecentTracks(port);                    
                 }
 
                 if (message.type == 'love') {
@@ -106,6 +133,11 @@ getUserSettings(function(user) {
 
                     currentTrackUserContext.userloved = '1';
                     sendCurrentTrackUserContext(port);
+
+                    // update recent tracks
+                    getRecentTrack(user, function(data) {
+                        recentTracks = data;
+                    });
                 }
 
                 if (message.type == 'unlove') {
@@ -127,16 +159,19 @@ getUserSettings(function(user) {
 
                     currentTrackUserContext.userloved = '0';
                     sendCurrentTrackUserContext(port);
+
+                    // update recent tracks
+                    getRecentTrack(user, function(data) {
+                        recentTracks = data;
+                    });
                 }
             });
 
             updatePopupTrackChangeHandler = function() {
-                console.log('updatePopupTrackChangeHandler');
                 sendCurrentTrack(port);
             }
 
             updateUserContextHandler = function() {
-                console.log('updateUserContextHandler');
                 sendCurrentTrackUserContext(port);
             }
 
@@ -153,7 +188,6 @@ getUserSettings(function(user) {
         var filter = {
             urls: ['*://s.youtube.com/s*']
         };
-        console.log(filter);
 
         chrome.webRequest.onBeforeRequest.addListener(function(details) {
             //console.log(details);

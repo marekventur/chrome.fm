@@ -5,6 +5,8 @@ body {
   background-color: #fafafa;
   font-size: 16px;
   color: #333333;
+  font-size: 13px;
+  line-height: 1.5em;
 
 }
 
@@ -24,8 +26,8 @@ h1 {
   margin-bottom:10px;
 }
 
-#currently-listening .side {
-  
+.side {
+  font-size: 16px;
 }
 
 .track-name, .track-artist {
@@ -35,25 +37,79 @@ h1 {
 .scrobbler-label {
   margin-top: 0px;
   color: #888;
-  font-size: 0.8em;
+  font-size: 13px;
   margin-top: 10px;
 }
 
 
 #recent {
-  padding-top:5px;
-  clear: left;
-  
+  padding-top:5px; 
 }
 
-#recent h2 {
+ h2 {
   color: #d51007;
-  font-size: 18px;
+  font-size: 16px;
 }
 
-#recent a{
-  font-size: 0.8em;
-  color: #888;
+#recent ul {
+  margin-left:0;
+  list-style: none;
+  -webkit-padding-start: 0px;
+  -webkit-margin-after: 0px;
+}
+
+#recent li {
+  line-height: 34px;
+  margin:0px;
+  padding: 0px;
+  border-bottom: 1px solid #ccc;
+  list-style: none;
+  position: relative;
+}
+
+#recent li img{
+  position: absolute;
+}
+
+#recent .text-container{
+  margin-left: 40px;testtest
+  position: relative;
+  line-height: 34px;
+  display: inline-block;
+}
+
+.more-recent-tracks {
+  display: none;
+} 
+
+#show-more-recent-tracks {
+  text-align: right;
+  font-weight: normal;
+  display: block;
+  font-size: 0.7em;
+  margin-top: -17px;
+}
+
+#tags {
+  padding: 2px 4px;
+  border: 1px solid #CCC;
+  background: whiteSmoke;
+  display: block;
+  width: 347px;
+}
+
+.normal-text-size {
+
+}
+
+a#send-tags {
+  display: inline-block;
+  float: right;
+  background-color: #D51007;
+  border-radius: 2px;
+  padding: 3px 10px;
+  color: #fff;
+  margin-bottom: 5px;
 }
 
 /* Icons 203x141 */
@@ -78,15 +134,15 @@ a.track-action-unlove {
 }
 
 a.track-action-ban {
-  background-position: 50px 0px;
+  background-position: 150px 0px;
 }
 
 a.track-action-share {
-  background-position: 100px 0px;
+  background-position: 50px 0px;
 }
 
 a.track-action-tag {
-  background-position: 150px 0px;
+  background-position: 100px 0px;
 }
 
 a.track-action-love:hover {
@@ -98,13 +154,13 @@ a.track-action-unlove:hover {
 }
 
 a.track-action-ban:hover {
-  background-position: 50px -47px;
+  background-position: 150px -47px;
 }
 
 a.track-action-share:hover {
-  background-position: 100px -47px;
+  background-position: 50px -47px;
 }
 
 a.track-action-tag:hover {
-  background-position: 150px -47px;
+  background-position: 100px -47px;
 }
