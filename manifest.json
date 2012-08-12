@@ -1,0 +1,28 @@
+{
+  "name": "Last.fm",
+  "version": "0.1",
+  "manifest_version": 2,
+  "description": "Last.fm on Chrome",
+  "browser_action": {
+    "default_icon": "images/icon.png",
+    "default_title": "Last.fm",      
+    "default_popup": "popup/popup.html"        
+  },
+  "icons": { 
+    "16": "images/icon.png",
+    "48": "images/icon48.png",
+    "128": "images/icon128.png" 
+  },
+  "permissions": [
+    "webRequest",
+    "notifications",
+    "storage",
+    "http://*/",
+    "https://*/"
+  ],
+  "content_security_policy": "script-src 'self' https://ws.audioscrobbler.com; object-src 'self'",
+  "options_page": "options/options.html",
+  "background": {
+    "page": "background/background.html"
+  }
+}

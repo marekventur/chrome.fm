@@ -1,0 +1,166 @@
+body {
+  min-width:357px;
+  overflow-x:hidden;
+  font-family: "Lucida Grande", Arial, Helvetica, Verdana, sans-serif;
+  background-color: #fafafa;
+  font-size: 16px;
+  color: #333333;
+  font-size: 13px;
+  line-height: 1.5em;
+
+}
+
+a {
+  color: #0187C5;
+  text-decoration: none;
+}
+
+h1 {
+  font-size: 16px;
+}
+
+#currently-listening img {
+  float: left;
+  margin-right: 10px;
+  border-radius: 2px;
+  margin-bottom:10px;
+}
+
+.side {
+  font-size: 16px;
+}
+
+.track-name, .track-artist {
+  sfont-weight: bold;
+}
+
+.scrobbler-label {
+  margin-top: 0px;
+  color: #888;
+  font-size: 13px;
+  margin-top: 10px;
+}
+
+
+#recent {
+  padding-top:5px; 
+}
+
+ h2 {
+  color: #d51007;
+  font-size: 16px;
+}
+
+#recent ul {
+  margin-left:0;
+  list-style: none;
+  -webkit-padding-start: 0px;
+  -webkit-margin-after: 0px;
+}
+
+#recent li {
+  line-height: 34px;
+  margin:0px;
+  padding: 0px;
+  border-bottom: 1px solid #ccc;
+  list-style: none;
+  position: relative;
+}
+
+#recent li img{
+  position: absolute;
+}
+
+#recent .text-container{
+  margin-left: 40px;testtest
+  position: relative;
+  line-height: 34px;
+  display: inline-block;
+}
+
+.more-recent-tracks {
+  display: none;
+} 
+
+#show-more-recent-tracks {
+  text-align: right;
+  font-weight: normal;
+  display: block;
+  font-size: 0.7em;
+  margin-top: -17px;
+}
+
+#tags {
+  padding: 2px 4px;
+  border: 1px solid #CCC;
+  background: whiteSmoke;
+  display: block;
+  width: 347px;
+}
+
+.normal-text-size {
+
+}
+
+a#send-tags {
+  display: inline-block;
+  float: right;
+  background-color: #D51007;
+  border-radius: 2px;
+  padding: 3px 10px;
+  color: #fff;
+  margin-bottom: 5px;
+}
+
+/* Icons 203x141 */
+
+.icon {
+  margin-top: 5px;
+  height: 40px;
+  width: 50px;
+  background-image:url('icons.png');
+  text-indent: -3000px; 
+  outline: none;
+  display: block;
+  float: left;
+}
+
+a.track-action-love {
+  background-position: 0px 0px;
+}
+
+a.track-action-unlove {
+  background-position: 0px -47px;
+}
+
+a.track-action-ban {
+  background-position: 150px 0px;
+}
+
+a.track-action-share {
+  background-position: 50px 0px;
+}
+
+a.track-action-tag {
+  background-position: 100px 0px;
+}
+
+a.track-action-love:hover {
+  background-position: 0px -47px;
+}
+
+a.track-action-unlove:hover {
+  background-position: 0px -94px;
+}
+
+a.track-action-ban:hover {
+  background-position: 150px -47px;
+}
+
+a.track-action-share:hover {
+  background-position: 50px -47px;
+}
+
+a.track-action-tag:hover {
+  background-position: 100px -47px;
+}

@@ -1,13 +1,6 @@
 function getUserSettings(callback) {
     chrome.storage.local.get('user', function(data) {
-        if ('user' in data) {
-            user = data.user;
-            callback(user);
-        }
-        else
-        {
-            callback(null);
-        }
+        
     });
 }
 
