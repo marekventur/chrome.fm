@@ -1,5 +1,5 @@
 function getUserSettings(callback) {
-    chrome.storage.sync.get('user', function(data) {
+    chrome.storage.local.get('user', function(data) {
         if ('user' in data) {
             user = data.user;
             callback(user);
@@ -13,7 +13,7 @@ function getUserSettings(callback) {
 
 function setUserSettings(user, callback) {
     console.log('store', user);
-    chrome.storage.sync.set({'user': user}, callback);
+    chrome.storage.local.set({'user': user}, callback);
 }
 
 var apiDetails = {
